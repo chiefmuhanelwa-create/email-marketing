@@ -1,15 +1,19 @@
 import { Resend } from 'resend'
-import { SESClient, SendEmailCommand, SendBulkTemplatedEmailCommand } from '@aws-sdk/client-ses'
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses'
 
-export const resend = new Resend(process.env.RESEND_API_KEY)
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY)
+}
 
-export const sesClient = new SESClient({
-  region: process.env.AWS_REGION || 'us-east-1',
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-  },
-})
+function getSesClient() {
+  return new SESClient({
+    region: process.env.AWS_REGION || 'us-east-1',
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+    },
+  })
+}
 
 export function wrapEmailTemplate(params: {
   htmlBody: string
@@ -86,7 +90,7 @@ export async function sendViaResend(params: {
   text?: string
 }) {
   const { to, subject, html, text } = params
-  return resend.emails.send({
+  return getResend().emails.send({
     from: `${process.env.RESEND_FROM_NAME || 'Ndivhuwo | NO CHILL'} <${process.env.RESEND_FROM_EMAIL || 'hello@nochill.co.za'}>`,
     to,
     subject,
@@ -113,5 +117,5 @@ export async function sendViaSES(params: {
       },
     },
   })
-  return sesClient.send(command)
+  return getSesClient().send(command)
 }
