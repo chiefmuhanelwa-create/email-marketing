@@ -1,0 +1,33 @@
+{
+  "name": "nochill-email-empire",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:generate": "drizzle-kit generate"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.3",
+    "@aws-sdk/client-ses": "^3.600.0",
+    "@neondatabase/serverless": "^0.9.4",
+    "drizzle-orm": "^0.31.2",
+    "lodash": "^4.17.21",
+    "next": "14.2.5",
+    "react": "^18",
+    "react-dom": "^18",
+    "resend": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.6",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "drizzle-kit": "^0.22.8",
+    "typescript": "^5"
+  }
+}

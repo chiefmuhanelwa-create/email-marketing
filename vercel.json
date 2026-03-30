@@ -1,0 +1,23 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/sequences",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/campaigns",
+      "schedule": "*/15 * * * *"
+    }
+  ],
+  "functions": {
+    "app/api/import/route.ts": {
+      "maxDuration": 300
+    },
+    "app/api/campaigns/route.ts": {
+      "maxDuration": 300
+    },
+    "app/api/cron/sequences/route.ts": {
+      "maxDuration": 300
+    }
+  }
+}
