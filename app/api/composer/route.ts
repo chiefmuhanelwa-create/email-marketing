@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+function getAnthropic() {
+  return new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+}
 
 const SYSTEM_PROMPT = `You are Ndivhuwo's email ghostwriter for NOCHILL PTY LTD, a South African contentpreneurship brand with 3M+ followers.
 
@@ -60,7 +62,7 @@ export async function POST(req: NextRequest) {
     if (tone) contextParts.push(`Tone: ${tone}`)
     const context = contextParts.length > 0 ? `\n\nContext: ${contextParts.join(' | ')}` : ''
 
-    const message = await anthropic.messages.create({
+    const message = await getAnthropic().messages.create({
       model: 'claude-opus-4-5',
       max_tokens: 4096,
       system: SYSTEM_PROMPT,
